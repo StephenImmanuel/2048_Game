@@ -177,4 +177,39 @@ describe GameEngine do
       [nil, nil, nil, nil], [nil, nil, nil, nil]
     ]
   end
+
+  it 'setting board with random values' do
+    GameConfiguration.setting do
+      board [
+        [nil, nil, nil, nil], [nil, nil, nil, nil]
+      ]
+    end
+    game_engine = GameEngine.new GameConfiguration.board
+    game_engine.save_value_to_random_empty_location 2
+    game_engine.board.flatten.compact.should == [2]
+    game_engine.save_value_to_random_empty_location 2
+    game_engine.board.flatten.compact.should == [2, 2]
+  end
+
+  it 'when board has no free cell, no ramdon value is set' do
+    GameConfiguration.setting do
+      board [
+        [2, 2, 2, 2], [2, 2, 2, 2]
+      ]
+    end
+    game_engine = GameEngine.new GameConfiguration.board
+    game_engine.save_value_to_random_empty_location 5
+    game_engine.board.flatten.compact.should == [2, 2, 2, 2, 2, 2, 2, 2]
+  end
+
+  it 'ramdon value is set, when only one free cell' do
+    GameConfiguration.setting do
+      board [
+        [2, 2, 2, 2], [2, 2, 5, 2]
+      ]
+    end
+    game_engine = GameEngine.new GameConfiguration.board
+    game_engine.save_value_to_random_empty_location 5
+    game_engine.board.flatten.compact.should == [2, 2, 2, 2, 2, 2, 5, 2]
+  end
 end

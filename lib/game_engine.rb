@@ -3,6 +3,20 @@ class GameEngine
 
   def initialize(board)
     @board = board
+    @empty_cell_location = []
+  end
+
+  def save_value_to_random_empty_location(cell_value)
+    @board = @board.flatten
+    @empty_cell_location = []
+
+    @board.each_with_index do |value, index|
+      @empty_cell_location.push(index) if value.nil?
+    end
+
+    @board[@empty_cell_location.sample] = \
+      cell_value unless @empty_cell_location.empty?
+    @board = @board.each_slice(4).to_a
   end
 
   def update_board
