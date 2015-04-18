@@ -60,7 +60,7 @@ class PlayGame
     display_board
 
     abort 'Congratulation on winning :)' if @engine.board.to_s.include?(GameConfiguration.winning_score.to_s)
-    abort 'Sorry no more valid move. Exiting game :(' unless @engine.modified
+    abort 'Sorry no more valid move. Exiting game :(' unless @engine.board_updated
   end
 
   def start

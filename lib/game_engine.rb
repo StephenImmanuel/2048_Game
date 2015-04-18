@@ -1,5 +1,5 @@
 class GameEngine
-  attr_accessor :board, :modified
+  attr_accessor :board, :board_updated
 
   def initialize(board)
     @board = board
@@ -20,7 +20,7 @@ class GameEngine
   end
 
   def update_board
-    @modified = false
+    @board_updated = false
     @board.each do |subarray|
       subarray.each_with_index do |value, columnIndex|
         ref_index = subarray.size - columnIndex - 1
@@ -32,15 +32,15 @@ class GameEngine
         if ref_value.nil?
           subarray.delete_at(ref_index)
           subarray.push(nil)
-          @modified = true
+          @board_updated = true
         elsif compare_value.nil? && (compare_index >= 0)
           subarray.delete_at(compare_index)
           subarray.push(nil)
-          @modified = true
+          @board_updated = true
         elsif ref_value == compare_value
           subarray[ref_index] *= 2
           subarray[compare_index] = nil
-          @modified = true
+          @board_updated = true
         end
       end
       subarray.compact!
