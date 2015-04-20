@@ -3,10 +3,13 @@
 ## Usage
 
 1. Run bundle install to install the dependencies
-2. To play the game, execute the command "ruby play_game.rb" from root directory
-3. Press any direction key to begin the game
-4. For game play use the direction key
-5. To run testw, use the command 'rspec' from root directory
+2. To run tests, use the command 'rspec' from root directory
+
+## Instruction to play game
+1. To play the game, execute the command "ruby play_game.rb" from root directory
+2. Press any direction key to begin the game
+3. For game play use the direction key
+4. To exit the game, press any keys except the above
 
 TODO: Write usage instructions here
 
