@@ -8,6 +8,7 @@ require './lib/game_theme_setting'
 class PlayGame
   def initialize
     @engine = GameEngine.new GameConfiguration.board
+    @engine.save_value_to_random_empty_location 2
   end
 
   def display_board
