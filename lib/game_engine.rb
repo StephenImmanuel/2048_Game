@@ -22,8 +22,8 @@ class GameEngine
   def update_board
     @board_updated = false
     @board.each do |subarray|
-      subarray.each_with_index do |value, columnIndex|
-        ref_index = subarray.size - columnIndex - 1
+      subarray.each_with_index do |value, column_index|
+        ref_index = subarray.size - column_index - 1
         compare_index = ref_index - 1
 
         ref_value = subarray[ref_index]
@@ -47,28 +47,34 @@ class GameEngine
     end
   end
 
-  def move_right
-    update_board
+  def reverse_board
+    @board.each_with_index do |subarray, row_index|
+      @board[row_index] = subarray.reverse
+    end
+  end
 
+  def move_empty_cell_to_begining
     @board.each_with_index do |subarray|
       subarray.unshift(nil) while subarray.count < 4
     end
   end
 
-  def move_left
-    @board.each_with_index do |subarray, rowIndex|
-      @board[rowIndex] = subarray.reverse
-    end
-
-    update_board
-
-    @board.each_with_index do |subarray, rowIndex|
-      @board[rowIndex] = subarray.reverse
-    end
-
+  def move_empty_cell_to_end
     @board.each_with_index do |subarray|
       subarray.push(nil) while subarray.count < 4
     end
+  end
+
+  def move_right
+    update_board
+    move_empty_cell_to_begining
+  end
+
+  def move_left
+    reverse_board
+    update_board
+    reverse_board
+    move_empty_cell_to_end
   end
 
   def move_down
