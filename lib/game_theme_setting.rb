@@ -1,37 +1,35 @@
 module GameThemeSetting
+
+  DEFAULT_THEME = {
+    0 => {:color => :light_white, :background => :black},
+    2 => {:color => :light_white, :background => :light_black},
+    4 => {:color => :light_white, :background => :cyan},
+    8 => {:color => :light_white, :background => :light_magenta},
+    16 => {:color => :light_white, :background => :blue},
+    32 => {:color => :light_white, :background => :light_blue},
+    64 => {:color => :light_white, :background => :yellow},
+    128 => {:color => :light_white, :background => :light_yellow},
+    256 => {:color => :light_white, :background => :green},
+    512 => {:color => :light_white, :background => :light_green},
+    1024 => {:color => :light_white, :background => :red},
+    2048 => {:color => :light_white, :background => :light_red}
+  }
+
   def create_cell_with_value(num)
     string_diff = 6 - num.to_s.length
-    text = ' ' * string_diff + num.to_s
+    cell = ' ' * string_diff + num.to_s
   end
 
   def apply_theme(num)
-    text = GameThemeSetting.create_cell_with_value num
+    cell = GameThemeSetting.create_cell_with_value num
 
-    case num
-    when nil
-      text.colorize(:light_white).on_black
-    when 2
-      text.colorize(:light_white).on_light_black
-    when 4
-      text.colorize(:light_white).on_cyan
-    when 8
-      text.colorize(:light_white).on_light_magenta
-    when 16
-      text.colorize(:light_white).on_blue
-    when 32
-      text.colorize(:light_white).on_light_blue
-    when 64
-      text.colorize(:light_white).on_yellow
-    when 128
-      text.colorize(:light_white).on_light_yellow
-    when 256
-      text.colorize(:light_white).on_green
-    when 512
-      text.colorize(:light_white).on_light_green
-    when 1024
-      text.colorize(:light_white).on_red
-    when 2048
-      text.colorize(:light_white).on_light_red
+    theme = DEFAULT_THEME[num.to_i] 
+   
+    font_color = theme[:color]
+    backgound_color = "on_#{theme[:background]}"
+   
+    if font_color && backgound_color
+      cell.colorize(font_color).send(backgound_color)
     end
   end
 
